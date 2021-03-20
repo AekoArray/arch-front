@@ -2,16 +2,43 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Title</title>
     <script src="api.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" ></script>
 </head>
-<body>
-<form onsubmit="sendForm()">
-    <input id="username" type="text" placeholder="Username">
-    <input id="email" type="email" placeholder="email">
-    <input id="password" type="password" placeholder="password">
-    <input type="submit">
+<body class="background">
+<center>
+<div class="container4" style="margin-top: 8%" >
+    <div class="container">
+        <img src="https://dwstroy.ru/lessons/les3373/demo/img/men.png">
+<form onsubmit="sendForm()" style="margin-top: 20px">
+
+<div class="dws-input">
+                <input id="username" type="text" placeholder="Username">
+            </div>
+  <br><div class="dws-input">
+                <input id="email" type="email" placeholder="email">
+            </div>
+    <br><div class="dws-input">
+                <input id="password" type="password" placeholder="password">
+            </div>
+
+    <br><input class="dws-submit" type="submit" name="submit" value="Войти"><br/>
+    <br><div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" value="option1" style="width:20px; height:20px;" id="exampleCheck1" >
+                <label class="form-check-label"  style="margin-left: 10px; color:#261E1F" for="exampleCheck1" >Запомнить меня</label>
+            </div>
+
 </form>
+</div>
+</div>
+</center>
+
+
+
 </body>
 <script>
 
