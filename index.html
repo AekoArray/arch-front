@@ -5,17 +5,31 @@
     <title>Title</title>
     <script src="api.js"></script>
 </head>
-<body>
-<form id="from" onsubmit="sendData()">
-    <input id="input" type="text" placeholder="Write something...">
-    <input id="file-input" type="file">
-    <input type="submit">
-</form>
-<div id="status"></div>
-<ul>
-    <li id="categories">
-    </li>
-</ul>
+<body class="background">
+<div style="margin-top: 40px; margin-left: 15px">
+    <form id="from" onsubmit="sendData()">
+        <div class="input-group mb-3" style="padding-right: 1250px">
+            <input type="text" class="form-control" placeholder="Ввод" aria-label="Ввод" aria-describedby="basic-addon2">
+        </div>
+        <form>
+            <div>
+                <input id="file-input" type="file">
+                <input type="submit">
+            </div>
+        </form>
+    </form>
+
+
+
+    <div  role="alert" id="status" style="width: 25%; margin-top: 20px">
+    </div>
+
+
+    <ul>
+        <li id="categories">
+        </li>
+    </ul>
+</div>
 </body>
 
 <script>
