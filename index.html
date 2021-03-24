@@ -1,9 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <script src="api.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Storage</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous" ></script>
 </head>
 <body>
 <form id="from" onsubmit="sendData()">
@@ -19,12 +22,10 @@
 </body>
 
 <script>
-
     const url = "http://localhost:8080"
 
     async function sendData() {
 
-        event.preventDefault()
 
         const inputElement = document.getElementById("input")
         const input = inputElement.value
@@ -35,12 +36,34 @@
         if (fileInput !== undefined){
             formData.append("file", fileInput)
         }
-        await api(url, 'POST', "/data/", "sending data", fileInput === undefined ? input : formData)
+
+        console.log(fileInput)
+        try {
+            const response = await fetch(url+"/data/", {
+                method: 'POST',
+                body: fileInput === undefined ? input : formData,
+            });
+            const json = await response.json();
+            console.log('Success in sending data: ', JSON.stringify(json))
+            document.getElementById("status").innerText = "Success in sending data"
+        } catch (error) {
+            console.error('Error in sending data: ', error)
+            document.getElementById("status").innerText = "Error in sending data"
+            document.getElementById("status").className = "alert alert-danger"
+        }
     }
 
     async function showCategories() {
 
-            const json = await api(url, 'GET', "/category/", "getting categories", null)
+        fetch(url + "/category/", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }).then(function (response) {
+            return response.json()
+        }).then(function (json) {
+            console.log(json)
             const catElement = document.getElementById("categories")
             catElement.innerHTML = ""
             for (let category of json) {
@@ -52,17 +75,17 @@
                 elem.appendChild(a)
                 catElement.appendChild(elem)
             }
-    }
-
-    function checkCookie() {
-        if (document.cookie === '') {
-            window.location.href = "auth.html"
-        }
+        }).catch(function (error) {
+            console.log(error.message)
+            const status = document.getElementById("status")
+            status.innerText = "Error in getting categories"
+            status.className = 'alert alert-danger'
+        });
     }
 
     showCategories()
     setInterval(showCategories, 3000)
-    setInterval(checkCookie, 3000)
 
 </script>
 </html>
+
