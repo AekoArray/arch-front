@@ -11,10 +11,13 @@
     <input id="file-input" type="file">
     <input type="submit">
 </form>
+<div id="radioDiv">
+    <input type="radio" name="r1">WebSocket
+    <input type="radio" name="r1">Periodical
+    <button type="submit" onclick="checkRadio()">Использовать</button>
+</div>
 <div id="status"></div>
 <ul>
-    <li id="categories">
-    </li>
 </ul>
 </body>
 
@@ -38,20 +41,32 @@
         await api(url, 'POST', "/data/", "sending data", fileInput === undefined ? input : formData)
     }
 
+    function checkRadio() {
+        let radio = document.getElementsByName("r1")
+        if (radio[0].checked) {
+            document.getElementById("radioDiv").remove()
+            webSocketStart()
+        } else if (radio[1].checked) {
+            document.getElementById("radioDiv").remove()
+            showCategories()
+            setInterval(showCategories, 3000)
+        }
+    }
+
     async function showCategories() {
 
-            const json = await api(url, 'GET', "/category/", "getting categories", null)
-            const catElement = document.getElementById("categories")
-            catElement.innerHTML = ""
-            for (let category of json) {
-                const elem = document.createElement("li")
-                const a = document.createElement("a")
-                a.dataset.id = category.id
-                a.innerText = category.title
-                a.href = url + "/category/" + category.id
-                elem.appendChild(a)
-                catElement.appendChild(elem)
-            }
+        const json = await api(url, 'GET', "/category/", "getting categories", null)
+        const catElement = document.getElementById("categories")
+        catElement.innerHTML = ""
+        for (let category of json) {
+            const elem = document.createElement("li")
+            const a = document.createElement("a")
+            a.dataset.id = category.id
+            a.innerText = category.title
+            a.href = url + "/category/" + category.id
+            elem.appendChild(a)
+            catElement.appendChild(elem)
+        }
     }
 
     function checkCookie() {
@@ -60,8 +75,6 @@
         }
     }
 
-    showCategories()
-    setInterval(showCategories, 3000)
     setInterval(checkCookie, 3000)
 
 </script>
