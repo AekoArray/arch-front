@@ -20,11 +20,7 @@
 
 <script>
 
-    const url = "http://localhost:8080"
-
     async function sendData() {
-
-        event.preventDefault()
 
         const inputElement = document.getElementById("input")
         const input = inputElement.value
@@ -35,12 +31,12 @@
         if (fileInput !== undefined){
             formData.append("file", fileInput)
         }
-        await api(url, 'POST', "/data/", "sending data", fileInput === undefined ? input : formData)
+        await API.sendData(fileInput === undefined ? input : formData)
     }
 
     async function showCategories() {
 
-            const json = await api(url, 'GET', "/category/", "getting categories", null)
+            const json = await API.getData()
             const catElement = document.getElementById("categories")
             catElement.innerHTML = ""
             for (let category of json) {
@@ -48,7 +44,7 @@
                 const a = document.createElement("a")
                 a.dataset.id = category.id
                 a.innerText = category.title
-                a.href = url + "/category/" + category.id
+                a.href = urlCore + "/category/" + category.id
                 elem.appendChild(a)
                 catElement.appendChild(elem)
             }
