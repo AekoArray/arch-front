@@ -11,17 +11,14 @@
     <input id="file-input" type="file">
     <input type="submit">
 </form>
-<div id="radioDiv">
-    <input type="radio" name="r1">WebSocket
-    <input type="radio" name="r1">Periodical
-    <button type="submit" onclick="checkRadio()">Использовать</button>
-</div>
 <div id="status"></div>
 <ul>
 </ul>
 </body>
 
 <script>
+
+    choseUpdater();
 
     const url = "http://localhost:8080"
 
@@ -41,13 +38,10 @@
         await api(url, 'POST', "/data/", "sending data", fileInput === undefined ? input : formData)
     }
 
-    function checkRadio() {
-        let radio = document.getElementsByName("r1")
-        if (radio[0].checked) {
-            document.getElementById("radioDiv").remove()
+    function choseUpdater(bolChose) {
+        if (bolChose) {
             webSocketStart()
-        } else if (radio[1].checked) {
-            document.getElementById("radioDiv").remove()
+        } else {
             showCategories()
             setInterval(showCategories, 3000)
         }
