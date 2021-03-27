@@ -7,7 +7,7 @@ const urlCore = "http://localhost:8080"
 
 
 /**
- * Abstract factory for api
+ * Factory for api
  * @param url
  * @param method (GET or POST)
  * @param endpoint
