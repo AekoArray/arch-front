@@ -14,7 +14,7 @@
     <div class="container4" style="margin-top: 8%" >
         <div class="container">
             <img src="https://dwstroy.ru/lessons/les3373/demo/img/men.png">
-<form onsubmit="sendForm()" style="margin-top: 20px">
+<form id="aut" onsubmit="sendForm()" style="margin-top: 20px">
     <div class="dws-input">
         <input id="username" type="text" placeholder="username">
     </div>
@@ -22,12 +22,36 @@
     <input id="password" type="password" placeholder="password">
 </div>
 
-    <br><input class="dws-submit" type="submit" name="submit" value="Войти"><br/>
+    <br><input class="dws-submit" type="submit" name="submit" value="Войти">
+        <input onclick="reg()" class="dws-submit" type="submit" name="submit" value="Зарегистрироваться">
+    <br/>
     <br><div class="form-group form-check">
     <input type="checkbox" class="form-check-input" value="option1" style="width:20px; height:20px;" id="exampleCheck1" >
     <label class="form-check-label"  style="margin-left: 10px; color:#261E1F" for="exampleCheck1" >Запомнить меня</label>
 </div>
 </form>
+
+            <form id="registr" onsubmit="sendFormReg()" style="margin-top:20px; display:none">
+
+                <div class="dws-input">
+                    <input id="username-r" type="text" placeholder="Username">
+                </div>
+                <br><div class="dws-input">
+                <input id="email" type="email" placeholder="email">
+            </div>
+                <br><div class="dws-input">
+                <input id="password-r" type="password" placeholder="password">
+            </div>
+
+                <br><input class="dws-submit" type="submit" name="submit" value="Зарегистрироваться"><br/>
+                <br><div class="form-group form-check">
+                <input type="checkbox" class="form-check-input" value="option1" style="width:20px; height:20px;" id="exampleCheck1" >
+                <label class="form-check-label"  style="margin-left: 10px; color:#261E1F" for="exampleCheck1" >Запомнить меня</label>
+            </div>
+
+            </form>
+
+
         </div>
     </div>
 </center>
@@ -50,6 +74,33 @@
         };
         console.log(data)
         const response = await api(url, 'POST', "/sign_in/", "authorization", JSON.stringify(data), {'Content-Type': 'application/json'})
+        console.log(response)
+        setCookie(response)
+        window.location.href = "index.html"
+    }
+    function reg(){
+        const form1 = document.getElementById("registr")
+        form1.style = "display:block"
+        const form2 = document.getElementById("aut")
+        form2.style = "display:none"
+    }
+    async function sendFormReg() {
+
+        event.preventDefault()
+
+        const usernameElement = document.getElementById("username")
+        const username = usernameElement.value
+        const emailElement = document.getElementById("email")
+        const email = emailElement.value
+        const passwordElement = document.getElementById("password")
+        const password = passwordElement.value
+        const data = {
+            username: username,
+            email: email,
+            password: password
+        };
+        console.log(data)
+        const response = await api(url,'POST', "/sign_up/", "registration", JSON.stringify(data), {'Content-Type': 'application/json'})
         console.log(response)
         setCookie(response)
         window.location.href = "index.html"
