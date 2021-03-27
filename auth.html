@@ -14,24 +14,24 @@
 </body>
 <script>
 
-    const url = "http://localhost:8081"
+    const url = "http://localhost:8081";
 
     async function sendForm() {
 
-        event.preventDefault()
+        event.preventDefault();
 
-        const usernameElement = document.getElementById("username")
-        const username = usernameElement.value
-        const passwordElement = document.getElementById("password")
-        const password = passwordElement.value
+        const usernameElement = document.getElementById("username");
+        const username = usernameElement.value;
+        const passwordElement = document.getElementById("password");
+        const password = passwordElement.value;
         const data = {
             username: username,
             password: password
         };
-        console.log(data)
+        console.log(data);
         const response = await api(url, 'POST', "/sign_in/", "authorization", JSON.stringify(data), {'Content-Type': 'application/json'})
-        console.log(response)
-        setCookie(response)
+        console.log(response);
+        setCookie(response);
         window.location.href = "index.html"
     }
 

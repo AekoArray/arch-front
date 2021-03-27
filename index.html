@@ -20,38 +20,91 @@
 
 <script>
 
-    const url = "http://localhost:8080"
+    const url = "http://localhost:8080";
+
+    new Updater(new WebsocketUpdaterStrategy(json => {
+        const catElement = document.getElementById("categories");
+        catElement.innerHTML = "";
+        for (let category of json) {
+            const elem = document.createElement("li");
+            const a = document.createElement("a");
+            a.dataset.id = category.id;
+            a.innerText = category.title;
+            a.href = url + "/category/" + category.id;
+            elem.appendChild(a);
+            catElement.appendChild(elem)
+        }
+    }, url)).start();
+
+    class Updater {
+        constructor(strategy) {
+            this.strategy = strategy;
+        }
+
+        start() {
+            this.strategy.update();
+        }
+    }
+
+    class UpdaterStrategy {
+
+        constructor(callback) {
+            this.callback = callback;
+        }
+
+        start();
+    }
+
+    class WebsocketUpdaterStrategy extends UpdaterStrategy {
+
+        constructor(callback, url) {
+            super(callback);
+            this.url = url;
+        }
+
+        start() {
+            const socket = new WebSocket(this.url);
+
+            socket.onopen = function (e) {
+                console.log("WebSocket start!");
+            };
+
+            socket.onmessage = function (event) {
+                callback(event.data);
+            }
+        }
+    }
+
+    class FetchUpdaterStrategy extends UpdaterStrategy {
+
+        constructor(callback, url) {
+            super(callback);
+        }
+
+        start() {
+            setInterval(() => {
+                (async () => {
+                    const json = await api(url, 'GET', "/category/", "getting categories", null);
+                    this.callback(json);
+                })();
+            }, 3000);
+        }
+    }
 
     async function sendData() {
 
-        event.preventDefault()
+        event.preventDefault();
 
-        const inputElement = document.getElementById("input")
-        const input = inputElement.value
+        const inputElement = document.getElementById("input");
+        const input = inputElement.value;
 
-        const fileInput = document.getElementById("file-input").files[0]
-        const formData = new FormData()
+        const fileInput = document.getElementById("file-input").files[0];
+        const formData = new FormData();
 
-        if (fileInput !== undefined){
+        if (fileInput !== undefined) {
             formData.append("file", fileInput)
         }
         await api(url, 'POST', "/data/", "sending data", fileInput === undefined ? input : formData)
-    }
-
-    async function showCategories() {
-
-            const json = await api(url, 'GET', "/category/", "getting categories", null)
-            const catElement = document.getElementById("categories")
-            catElement.innerHTML = ""
-            for (let category of json) {
-                const elem = document.createElement("li")
-                const a = document.createElement("a")
-                a.dataset.id = category.id
-                a.innerText = category.title
-                a.href = url + "/category/" + category.id
-                elem.appendChild(a)
-                catElement.appendChild(elem)
-            }
     }
 
     function checkCookie() {
@@ -60,9 +113,7 @@
         }
     }
 
-    showCategories()
-    setInterval(showCategories, 3000)
-    setInterval(checkCookie, 3000)
+    setInterval(checkCookie, 3000);
 
 </script>
 </html>

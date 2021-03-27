@@ -2,21 +2,21 @@
 
 const json = {
     token: ''
-}
+};
 
 async function api(url, method, endpoint, message, data, headers) {
     try {
         const header = headers !== undefined ? headers : {};
         header['Authorization'] = getCookie('token');
-        const response = await fetch(url+endpoint, {
+        const response = await fetch(url + endpoint, {
             method: method,
-            body: data === null? undefined : data,
-            headers : header
+            body: data === null ? undefined : data,
+            headers: header
         });
         return await response.json()
     } catch (e) {
-        console.error(e.message)
-        document.getElementById("status").innerText = "Error in "+ message
+        console.error(e.message);
+        document.getElementById("status").innerText = "Error in " + message
     }
 }
 
