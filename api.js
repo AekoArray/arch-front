@@ -5,6 +5,15 @@ const json = {
 const urlAuth = "http://localhost:8081"
 const urlCore = "http://localhost:8080"
 
+
+/**
+ * Abstract factory for api
+ * @param url
+ * @param method (GET or POST)
+ * @param endpoint
+ * @param message (message for errors)
+ * @param headers
+ */
 function makeRequest(url, method, endpoint, message, headers) {
     return async function (data = null) {
         try {
