@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<button type="button" onclick="startProject(1)">+1</button>
+<button type="button" onclick="startProject(2)">-1</button>
+<script src="https://smtpjs.com/v3/smtp.js">
+</script>
+<script>
+    counter = 0;
+
+    function startProject(int) {
+
+        const sendResult = result => {
+            result.seeResult = () => {
+                Email.send({
+                    Host : "smtp.mail.ru",
+                    Username : "username",
+                    Password : "password",
+                    To : 'to mail',
+                    From : "from mail",
+                    Subject : "Subject",
+                    Body : result.returnResult()
+                }).then(
+                    message => alert(message)
+                );
+            }
+        }
+
+        let result = new Factory()
+        result.create(int)
+        sendResult(result)
+        result.seeResult()
+    }
+
+    increaseCounter = (function () {
+
+        let instance;
+
+        let getCounter = function () {
+            return counter;
+        }
+
+        let replaceCounter = function () {
+            counter++;
+        }
+
+        let createInstance = function () {
+            return {
+                getCounter: getCounter,
+                replaceCounter: replaceCounter
+            }
+        }
+
+        return {
+            getInstance: function () {
+                return instance || (instance = createInstance());
+            }
+        }
+
+    }());
+
+    decreaseCounter = (function () {
+
+        let instance;
+
+        let getCounter = function () {
+            return counter;
+        }
+
+        let replaceCounter = function () {
+            counter--;
+        }
+
+        let createInstance = function () {
+            return {
+                getCounter: getCounter,
+                replaceCounter: replaceCounter
+            }
+        }
+
+        return {
+            getInstance: function () {
+                return instance || (instance = createInstance());
+            }
+        }
+
+    }());
+
+    class Factory {
+
+        counter;
+
+        create(int) {
+            if (int === 1) {
+                this.counter = increaseCounter
+            } else if (int == 2) {
+                this.counter = decreaseCounter
+            }
+            this.counter.getInstance().replaceCounter()
+        }
+        seeResult() {
+            console.log(this.counter.getInstance().getCounter())
+        }
+        returnResult() {
+            return this.counter.getInstance().getCounter()
+        }
+    }
+</script>
+</body>
+</html>
