@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="basket.js"></script>
+    <script src="products.js"></script>
+    <script src="check.js"></script>
+    <script src="card.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
+</head>
+<body>
+</body>
+<script>
+
+    const myBasket = new Basket();
+    const factory = new ProductFactory();
+    const apple = factory.take("Apple", 3);
+    const water = factory.take("Bottle of water", 2);
+    const chocolate = factory.take("Chocolate", 2);
+    myBasket.addProduct(apple);
+    myBasket.addProduct(water);
+    myBasket.addProduct(chocolate);
+    const cardStrategy = new CardStrategy("NoCardStrategy").chooseStrategy();
+    cardStrategy.makeDiscount();
+    console.log(myBasket.getProducts());
+    console.log(myBasket.getTotalPrice());
+    let check = new Check();
+    check = new Letter(check)
+    check.sendCheck()
+
+</script>
+</html>
