@@ -13,20 +13,37 @@
 </body>
 <script>
 
+    //create a shopping basket
     const myBasket = new Basket();
+
+    //create a food factory and get three apples,
+    // two bottles of water and 2 chocolates
     const factory = new ProductFactory();
     const apple = factory.take("Apple", 3);
     const water = factory.take("Bottle of water", 2);
     const chocolate = factory.take("Chocolate", 2);
+
+    //add products to basket
     myBasket.addProduct(apple);
     myBasket.addProduct(water);
     myBasket.addProduct(chocolate);
-    const cardStrategy = new CardStrategy("NoCardStrategy").chooseStrategy();
+
+    //use the gold card strategy
+    const cardStrategy = new CardStrategy("GoldCardStrategy").chooseStrategy();
+    console.log(myBasket.getTotalPrice());
+
+    //get a discount on a gold card
     cardStrategy.makeDiscount();
+
+    //get a list of products and a total price
     console.log(myBasket.getProducts());
     console.log(myBasket.getTotalPrice());
+
+    //create a check and a letter
     let check = new Check();
     check = new Letter(check)
+
+    //send the check to the mail
     check.sendCheck()
 
 </script>

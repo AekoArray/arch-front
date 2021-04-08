@@ -1,3 +1,4 @@
+//class inherited from the basket
 class Check extends Basket {
     constructor() {
         super();
@@ -5,11 +6,13 @@ class Check extends Basket {
 }
 
 //Decorator
+//class extending the possibilities of the check
 class Letter {
     constructor(check) {
         this.check = check;
     }
 
+    //method for sending a check to the mail
     sendCheck() {
         this.sendEmail()
     }
