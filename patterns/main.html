@@ -29,7 +29,7 @@
     myBasket.addProduct(chocolate);
 
     //use the gold card strategy
-    const cardStrategy = new CardStrategy("GoldCardStrategy").chooseStrategy();
+    const cardStrategy = new CardStrategy("GoldCardStrategy", myBasket).chooseStrategy();
     console.log(myBasket.getTotalPrice());
 
     //get a discount on a gold card
