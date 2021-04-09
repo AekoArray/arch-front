@@ -19,6 +19,11 @@ class Product {
     getNumber() {
         return this.number
     }
+
+    //method for getting the type of a product
+    getName() {
+        return this.name
+    }
 }
 
 //factory class for products
