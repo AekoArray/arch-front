@@ -43,4 +43,22 @@ describe('test', function() {
         //check which page the user is on and compare with the required
         assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/auth.html');
     })
+    //Тестирование регистрации
+    it('register', async function() {
+        //URL
+        await driver.get("http://localhost:63342/arch-front/registration.html")
+        //Ввод имени пользователя
+        await driver.findElement(By.id("username")).click()
+        await driver.findElement(By.id("username")).sendKeys("ttt")
+        //Ввод email адреса
+        await driver.findElement(By.id("email")).click()
+        await driver.findElement(By.id("email")).sendKeys("ttt@mail.ru")
+        //Ввод пароля
+        await driver.findElement(By.id("password")).click()
+        await driver.findElement(By.id("password")).sendKeys("ttt")
+        await driver.findElement(By.css("input:nth-child(4)")).click()
+        await sleep(3000)
+        //Проверка редиректа страницы регистрации при успешной регистрации
+        assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/auth.html');
+    })
 })
