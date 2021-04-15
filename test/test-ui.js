@@ -82,4 +82,18 @@ describe('test', function() {
       // check that we were redirected to the correct page
       assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/index.html');
    })
+    /**
+     * Test to check addition text input in index.html
+     * Test goes to index.html and input "string" as input value
+     * then checks if its appear in page as a download option
+     */
+    it('add string', async function() {
+        await driver.get("http://localhost:63342/arch-front/index.html")
+        await driver.findElement(By.id("input")).click()
+        await driver.findElement(By.id("input")).sendKeys("string")
+        await driver.findElement(By.css("input:nth-child(3)")).click()
+        await sleep(3000)
+        var categories = await driver.findElement(By.id("categories")).getText()
+        assert.strictEqual(categories, 'plain/text');
+    })
 })
