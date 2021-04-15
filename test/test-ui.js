@@ -61,4 +61,25 @@ describe('test', function() {
         //Проверка редиректа страницы регистрации при успешной регистрации
         assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/auth.html');
     })
+    // correct auth test
+    // testing existing user with correct password
+    // we expect that when user is authorized a page with files is opened
+    it('auth', async function() {
+  	  // go to the authorization page
+      await driver.get("http://localhost:63342/arch-front/auth.html")
+      // click on the field with username
+      await driver.findElement(By.id("username")).click()
+      // set there the username of an existing user
+      await driver.findElement(By.id("username")).sendKeys("ttt")
+      // click on the field with password
+      await driver.findElement(By.id("password")).click()
+      // set there the correct password of user
+      await driver.findElement(By.id("password")).sendKeys("ttt")
+      // click on the authorization button
+      await driver.findElement(By.css("input:nth-child(3)")).click()
+      // wait 3 seconds for the changes to be loaded
+      await sleep(3000)
+      // check that we were redirected to the correct page
+      assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/index.html');
+   })
 })
