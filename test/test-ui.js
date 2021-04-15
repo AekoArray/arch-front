@@ -96,4 +96,16 @@ describe('test', function() {
         var categories = await driver.findElement(By.id("categories")).getText()
         assert.strictEqual(categories, 'plain/text');
     })
+    /**
+     * Test to check delete category on download
+     * Click ot href with text 'plain/text'
+     * check if category don't contains 'plain/text' after click
+     */
+    it('delete string', async function() {
+        await driver.get("http://localhost:63342/arch-front/index.html")
+        await driver.findElement(By.linkText("plain/text")).click()
+        await sleep(3000)
+        var categories = await driver.findElement(By.id("categories")).getText()
+        assert.notStrictEqual(categories, 'plain/text');
+    })
 })
