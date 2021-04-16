@@ -120,6 +120,11 @@ describe('test', function() {
 	
 	/*
 	* Test to check that file uploaded
+	* Go to the page
+	* Upload a file
+	* Press the button
+	* Get categories
+	* Check that category added and image was uploaded
 	*/
 	it('add file', async function() {
 		await driver.get("http://localhost:63342/arch-front/index.html")
