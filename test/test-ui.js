@@ -21,6 +21,15 @@ describe('test', function() {
         //close the browser window
         await driver.quit();
     })
+    // тест, проверяющий кнопку регистрации страницы auth
+    it('register from auth', async function() {
+        await driver.get("http://localhost:63342/arch-front/auth.html%22")
+        await sleep(1000)
+        await driver.findElement(By.xpath("//*[text()[contains(.,'Registration')]]")).click();
+        await sleep(3000)
+        // assert на то, что после нажатия мы находимся на странице регистрации
+        assert.strictEqual(await driver.getCurrentUrl(), 'http://localhost:63342/arch-front/registration.html%27');
+    })
     //test for checking incorrect authorization
     // when the user enters a username and password that does not exist
     // in the database, he is thrown out on the authorization page again
