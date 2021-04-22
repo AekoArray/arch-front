@@ -15,8 +15,9 @@
 </body>
 <script>
 
-    const url = "http://localhost:8081";
-
+    /**
+     *Method for submitting the form (username, email, password)
+     */
    async function sendForm() {
 
         event.preventDefault()
@@ -32,11 +33,11 @@
             email: email,
             password: password
         };
-        console.log(data)
-        const response = await api(url,'POST', "/sign_up/", "registration", JSON.stringify(data), {'Content-Type': 'application/json'})
-       console.log(response)
+        //sending a post request to the server with form
+       const response = await API.register(JSON.stringify(data))
         setCookie(response)
-       window.location.href = "index.html"
+        //redirect to authorization page
+       window.location.href = "auth.html"
     }
 
 </script>

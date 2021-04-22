@@ -18,9 +18,10 @@
 
 <script>
 
+    /**
+     *Method for sending data (string or file)
+     */
     choseUpdater();
-
-    const url = "http://localhost:8080"
 
     async function sendData() {
 
@@ -35,7 +36,8 @@
         if (fileInput !== undefined){
             formData.append("file", fileInput)
         }
-        await api(url, 'POST', "/data/", "sending data", fileInput === undefined ? input : formData)
+        //sending a post request to the server with data
+        await API.sendData(fileInput === undefined ? input : formData)
     }
 
     function choseUpdater(bolChose) {
@@ -47,29 +49,32 @@
         }
     }
 
+    /**
+     * Method for getting all categories
+     */
     async function showCategories() {
 
-        const json = await api(url, 'GET', "/category/", "getting categories", null)
+        //sending a get request to the server
+        const json = await API.getData()
         const catElement = document.getElementById("categories")
-        catElement.innerHTML = ""
+        catElement.innerHTML = ""//get categories and create a list of category
         for (let category of json) {
             const elem = document.createElement("li")
             const a = document.createElement("a")
             a.dataset.id = category.id
             a.innerText = category.title
-            a.href = url + "/category/" + category.id
+            a.href = '#'
+                //on click on category, the data is downloaded
+                a.onclick = await function (){
+                    downloadCategory(urlCore + '/category/' + category.id)
+                };
             elem.appendChild(a)
             catElement.appendChild(elem)
         }
     }
 
-    function checkCookie() {
-        if (document.cookie === '') {
-            window.location.href = "auth.html"
-        }
-    }
-
-    setInterval(checkCookie, 3000)
+    //call the methods showCategory and checkCookie every three seconds
+    setInterval(checkCookie, 1000)
 
 </script>
 </html>
