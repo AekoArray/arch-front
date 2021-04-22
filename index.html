@@ -20,6 +20,9 @@
 
 <script>
 
+    /**
+     *Method for sending data (string or file)
+     */
     async function sendData() {
 
         event.preventDefault()
@@ -33,20 +36,27 @@
         if (fileInput !== undefined){
             formData.append("file", fileInput)
         }
+        //sending a post request to the server with data
         await API.sendData(fileInput === undefined ? input : formData)
     }
 
+    /**
+     * Method for getting all categories
+     */
     async function showCategories() {
 
-            const json = await API.getData()
+        //sending a get request to the server
+        const json = await API.getData()
             const catElement = document.getElementById("categories")
             catElement.innerHTML = ""
+            //get categories and create a list of category
             for (let category of json) {
                 const elem = document.createElement("li")
                 const a = document.createElement("a")
                 a.dataset.id = category.id
                 a.innerText = category.title
                 a.href = '#'
+                //on click on category, the data is downloaded
                 a.onclick = await function (){
                     downloadCategory(urlCore + '/category/' + category.id)
                 };
@@ -55,6 +65,7 @@
             }
     }
 
+    //call the methods showCategory and checkCookie every three seconds
     showCategories()
     setInterval(showCategories, 3000)
     setInterval(checkCookie, 1000)
