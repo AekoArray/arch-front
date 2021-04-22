@@ -16,8 +16,6 @@
 </body>
 <script>
 
-    const url = "http://84.201.163.74:8081"
-
     async function sendForm() {
 
         event.preventDefault()
@@ -30,9 +28,7 @@
             username: username,
             password: password
         };
-        console.log(data)
-        const response = await api(url, 'POST', "/sign_in/", "authorization", JSON.stringify(data), {'Content-Type': 'application/json'})
-        console.log(response)
+        const response = await API.auth(JSON.stringify(data))
         setCookie(response)
         window.location.href = "index.html"
     }
