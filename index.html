@@ -57,20 +57,6 @@
             }
     }
 
-    async function downloadCategory(url){
-        const options = {
-            headers: {
-                Authorization: getCookie('token')
-            }
-        };
-        fetch(url, options)
-            .then( res => res.blob() )
-            .then( blob => {
-                var file = window.URL.createObjectURL(blob);
-                window.location.assign(file);
-            });
-    }
-
     showCategories()
     setInterval(showCategories, 3000)
     setInterval(checkCookie, 1000)

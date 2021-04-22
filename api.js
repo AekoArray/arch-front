@@ -20,6 +20,26 @@ async function api(url, method, endpoint, message, data, headers) {
     }
 }
 
+async function downloadCategory(url) {
+    const options = {
+        headers: {
+            Authorization: getCookie('token')
+        }
+    };
+    try {
+        let response = await fetch(url, options);
+        let filename = response.headers.get('content-disposition').split('filename=')[1].split(';')[0];
+        let blob = await response.blob()
+        let link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = filename
+        link.click();
+        link.remove();
+    } catch (e) {
+        console.error(e.message)
+    }
+}
+
 function setCookie(json) {
     let date = new Date(Date.now() + 86400e3);
     date = date.toUTCString();
