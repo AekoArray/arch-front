@@ -22,6 +22,8 @@
 
     async function sendData() {
 
+        event.preventDefault()
+
         const inputElement = document.getElementById("input")
         const input = inputElement.value
 
@@ -44,10 +46,9 @@
                 const a = document.createElement("a")
                 a.dataset.id = category.id
                 a.innerText = category.title
-                a.href = urlCore + "/category/" + category.id
                 a.href = '#'
                 a.onclick = await function (){
-                    downloadCategory(url + '/category/' + category.id)
+                    downloadCategory(urlCore + '/category/' + category.id)
                 };
                 elem.appendChild(a)
                 catElement.appendChild(elem)
