@@ -39,7 +39,8 @@
             };
             //sending a post request to the server with form
             const response = await API.auth(JSON.stringify(data))
-            setCookie(response)//redirect to home page
+            setCookie(response)
+            //redirect to home page
             window.location.href = "index.html"
         }
     }
