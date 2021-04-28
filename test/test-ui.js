@@ -58,13 +58,13 @@ describe('test', function() {
         await driver.get("http://localhost:63344/arch-front/registration.html")
         //Ввод имени пользователя
         await driver.findElement(By.id("username")).click()
-        await driver.findElement(By.id("username")).sendKeys("ttt")
+        await driver.findElement(By.id("username")).sendKeys("tttt")
         //Ввод email адреса
         await driver.findElement(By.id("email")).click()
-        await driver.findElement(By.id("email")).sendKeys("ttt@mail.ru")
+        await driver.findElement(By.id("email")).sendKeys("tttt@mail.ru")
         //Ввод пароля
         await driver.findElement(By.id("password")).click()
-        await driver.findElement(By.id("password")).sendKeys("ttt")
+        await driver.findElement(By.id("password")).sendKeys("tttt")
         await driver.findElement(By.css("input:nth-child(4)")).click()
         await sleep(3000)
         //Проверка редиректа страницы регистрации при успешной регистрации
@@ -79,11 +79,11 @@ describe('test', function() {
       // click on the field with username
       await driver.findElement(By.id("username")).click()
       // set there the username of an existing user
-      await driver.findElement(By.id("username")).sendKeys("ttt")
+      await driver.findElement(By.id("username")).sendKeys("tttt")
       // click on the field with password
       await driver.findElement(By.id("password")).click()
       // set there the correct password of user
-      await driver.findElement(By.id("password")).sendKeys("ttt")
+      await driver.findElement(By.id("password")).sendKeys("tttt")
       // click on the authorization button
       await driver.findElement(By.css("input:nth-child(3)")).click()
       // wait 3 seconds for the changes to be loaded
