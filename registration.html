@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="api.js"></script>
+    <script src="valid.js"></script>
 </head>
 <body>
 <form onsubmit="sendForm()">
@@ -20,25 +21,30 @@
      */
    async function sendForm() {
 
-        event.preventDefault()
-
-        const usernameElement = document.getElementById("username")
-        const username = usernameElement.value
-        const emailElement = document.getElementById("email")
-        const email = emailElement.value
-        const passwordElement = document.getElementById("password")
-        const password = passwordElement.value
-        const data = {
-            username: username,
-            email: email,
-            password: password
-        };
-        //sending a post request to the server with form
-       const response = await API.register(JSON.stringify(data))
-        setCookie(response)
-        //redirect to authorization page
+       event.preventDefault()
+       // В данном случае мы проверяем 3 поля: имя пользователя, е-майл и пароль
+       // Если данные при регистрации некорректны, мы возвращаем предупреждение
+       // Иначе успешно регистрируем пользователя и переходим на index.html
+       if (validateForm("reg") === false) {
+           alert("Registration form incorrect")
+       } else {
+           const usernameElement = document.getElementById("username")
+           const username = usernameElement.value
+           const emailElement = document.getElementById("email")
+           const email = emailElement.value
+           const passwordElement = document.getElementById("password")
+           const password = passwordElement.value
+           const data = {
+               username: username,
+               email: email,
+               password: password
+           };
+           //sending a post request to the server with form
+           const response = await API.register(JSON.stringify(data))
+           setCookie(response)
+           //redirect to authorization page
        window.location.href = "auth.html"
-    }
-
+       }
+   }
 </script>
 </html>

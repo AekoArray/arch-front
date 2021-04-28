@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="api.js"></script>
+    <script src="valid.js"></script>
 </head>
 <body>
 <form onsubmit="sendForm()">
@@ -22,20 +23,26 @@
     async function sendForm() {
 
         event.preventDefault()
-
-        const usernameElement = document.getElementById("username")
-        const username = usernameElement.value
-        const passwordElement = document.getElementById("password")
-        const password = passwordElement.value
-        const data = {
-            username: username,
-            password: password
-        };
-        //sending a post request to the server with form
-        const response = await API.auth(JSON.stringify(data))
-        setCookie(response)
-        //redirect to home page
-        window.location.href = "index.html"
+        // В данном случае мы проверяем только 2 поля: имя пользователя и пароль
+        // Если данные при авторизации некорректны, мы возвращаем предупреждение
+        // Иначе успешно авторизируем пользователя и переходим на index.html
+        if (validateForm("auth") === false) {
+            alert("Authorization form incorrect")
+        } else {
+            const usernameElement = document.getElementById("username")
+            const username = usernameElement.value
+            const passwordElement = document.getElementById("password")
+            const password = passwordElement.value
+            const data = {
+                username: username,
+                password: password
+            };
+            //sending a post request to the server with form
+            const response = await API.auth(JSON.stringify(data))
+            setCookie(response)
+            //redirect to home page
+            window.location.href = "index.html"
+        }
     }
 
     //redirect to registration page
