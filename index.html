@@ -22,6 +22,10 @@
 
     const url = "http://localhost:8080";
 
+	
+	/*
+	* Созаем обЪект и передаем стратегию WebsocketUpdaterStrategy
+	*/
     new Updater(new WebsocketUpdaterStrategy(json => {
         const catElement = document.getElementById("categories");
         catElement.innerHTML = "";
@@ -36,6 +40,11 @@
         }
     }, url)).start();
 
+	
+	
+	/*
+	* Класс, получает стратегию и вызывает у нее метод start для запуска обновления категорий
+	*/
     class Updater {
         constructor(strategy) {
             this.strategy = strategy;
@@ -46,6 +55,10 @@
         }
     }
 
+	
+	/*
+	* Базовый класс стратегии
+	*/
     class UpdaterStrategy {
 
         constructor(callback) {
@@ -55,6 +68,10 @@
         start();
     }
 
+	
+	/*
+	* Стратегия, которая обновляет категории, используя websocket
+	*/
     class WebsocketUpdaterStrategy extends UpdaterStrategy {
 
         constructor(callback, url) {
@@ -75,6 +92,9 @@
         }
     }
 
+	/*
+	* Стратегия, которая обновляет категории, используя fetch
+	*/
     class FetchUpdaterStrategy extends UpdaterStrategy {
 
         constructor(callback, url) {
