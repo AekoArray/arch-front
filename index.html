@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <script src="api.js"></script>
-    <script src="webSocket.js"></script>
+    <script src="ChoseUpdater.js"></script>
 </head>
 <body>
 <form id="from" onsubmit="sendData()">
@@ -18,6 +18,8 @@
 </body>
 
 <script>
+    //Try opening a WebSocket connection
+    const socket = new WebSocket("wss://localhost:8080")
 
     choseUpdater();
 
@@ -34,7 +36,7 @@
         const fileInput = document.getElementById("file-input").files[0]
         const formData = new FormData()
 
-        if (fileInput !== undefined){
+        if (fileInput !== undefined) {
             formData.append("file", fileInput)
         }
         //sending a post request to the server with data
@@ -44,43 +46,22 @@
     /**
      *Method for update categories
      */
-    function choseUpdater(bolChose) {
-        if (bolChose) {
-            //start WebSocket
-            webSocketStart()
-        } else {
-            showCategories()
-            //call the methods showCategory every three seconds
-            setInterval(showCategories, 3000)
+    function choseUpdater() {
+
+        socket.onopen = function (e) {
+            //if WebSocket connection success -> WebSocket start
+            let updater = new Updater(new UpdateWebSocket)
+            updater.updater()
         }
-    }
 
-    /**
-     * Method for getting all categories
-     */
-    async function showCategories() {
-
-        //sending a get request to the server
-        const json = await API.getData()
-        const catElement = document.getElementById("categories")
-        catElement.innerHTML = ""//get categories and create a list of category
-        for (let category of json) {
-            const elem = document.createElement("li")
-            const a = document.createElement("a")
-            a.dataset.id = category.id
-            a.innerText = category.title
-            a.href = '#'
-                //on click on category, the data is downloaded
-                a.onclick = await function (){
-                    downloadCategory(urlCore + '/category/' + category.id)
-                };
-            elem.appendChild(a)
-            catElement.appendChild(elem)
+        socket.onerror = function (e) {
+            //if WebSocket connection failed -> Fetching start
+            let updater = new Updater(new UpdateFetch)
+            updater.updater()
         }
     }
 
     //call the methods checkCookie every one second
     setInterval(checkCookie, 1000)
-
 </script>
 </html>
