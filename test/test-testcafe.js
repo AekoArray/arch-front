@@ -3,12 +3,6 @@ import { ClientFunction } from 'testcafe';
 import { Role } from 'testcafe';
 import { Selector } from 'testcafe';
 
-// const setCookie = ClientFunction(() => {
-//     let date = new Date(Date.now() + 86400e3);
-//     date = date.toUTCString();
-//     document.cookie = `token=fdsfsdfds; expires=` + date;
-// });
-
 //get current url
 const getURL = ClientFunction(() => window.location.href);
 
@@ -83,7 +77,7 @@ test
         pageLoadTimeout:    2000,
         pageRequestTimeout: 3000
     })
-const user = Role (`http://localhost:63342/arch-front/auth.html`, async t => {
+(`auth`, async t => {
         await t
             //enters username of an existing user
             .typeText("#username", "tttt")
@@ -95,8 +89,6 @@ const user = Role (`http://localhost:63342/arch-front/auth.html`, async t => {
             // check that we were redirected to the correct page
             .expect(getURL()).eql('http://localhost:63342/arch-front/index.html');
     });
-// fixture `TestCafe test for main page`
-//     .page `http://localhost:63342/arch-front/index.html`;
 
 /**
  * Test to check addition text input in index.html
@@ -109,10 +101,14 @@ test
         pageRequestTimeout: 3000
     })
     (`add string`, async t => {
-        // await setCookie();
         await t
-            .navigateTo(`http://localhost:63342/arch-front/index.html`)
-            .useRole(user)
+            //enters username of an existing user
+            .typeText("#username", "tttt")
+            //enters password of an existing user
+            .typeText("#password", "tttt")
+            //clicks on the authorize button
+            .click("input:nth-child(3)")
+            .wait(3000)
             //enters string
             .typeText("#input", "string")
             //clicks on the submit button
@@ -132,10 +128,14 @@ test
         pageRequestTimeout: 3000
     })
     (`delete string`, async t => {
-        // await setCookie();
         await t
-            .useRole(user)
-            .wait(5000)
+            //enters username of an existing user
+            .typeText("#username", "tttt")
+            //enters password of an existing user
+            .typeText("#password", "tttt")
+            //clicks on the authorize button
+            .click("input:nth-child(3)")
+            .wait(3000)
             .click(Selector('a').withText('plain/text'))
             .expect(Selector("#categories").innerText).notEql('plain/text');
     });
@@ -154,10 +154,15 @@ test
         pageRequestTimeout: 3000
     })
     (`add file`, async t => {
-        // await setCookie();
         await t
-            .useRole(user)
-            //enters string
+            //enters username of an existing user
+            .typeText("#username", "tttt")
+            //enters password of an existing user
+            .typeText("#password", "tttt")
+            //clicks on the authorize button
+            .click("input:nth-child(3)")
+            .wait(3000)
+            //enters file
             .setFilesToUpload(Selector("input[type=file]"), "C:\\Users\\Гульназ\\Pictures\\Screenshots\\8.1.png")
             .click(Selector("input[type=file]"))
             .click("input:nth-child(3)")
