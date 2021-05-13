@@ -34,6 +34,11 @@ you only need to run the main page - index.html
 * registration.html - registration page
 * auth.html - authorization page
 
+## Patterns
+
+* The ChoseUpdater file describes the strategy pattern. It allows you to modify the algorithms regardless of their use on the client side. In this case, if the browser supports WebSocket, the data is updated through them. Otherwise, a three-second update works
+* The file connection.js describes the Decorator pattern. It allows you to dynamically configure the application. In our case, the code allows you not to write the URL every time, but to give it as a class
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
