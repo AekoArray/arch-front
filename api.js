@@ -1,11 +1,9 @@
-// const url = "http://localhost:8081"
-
 const json = {
     token: ''
 }
-
-const urlAuth = "http://localhost:8081"
-const urlCore = "http://localhost:8080"
+let connection = new Connection('test')
+const urlAuth = connection.getAuthServiceConnection()
+const urlCore = connection.getStorageServiceConnection()
 
 
 /**

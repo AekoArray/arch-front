@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="connection.js"></script>
     <script src="api.js"></script>
     <script src="ChoseUpdater.js"></script>
 </head>
@@ -19,7 +20,8 @@
 
 <script>
     //Try opening a WebSocket connection
-    const socket = new WebSocket("wss://localhost:8080")
+    const socket = new WebSocket(new Connection('test').getWebsocketConnection())
+    console.log(socket)
 
     choseUpdater();
 
