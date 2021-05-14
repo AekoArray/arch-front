@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="basket.js"></script>
+    <script src="products.js"></script>
+    <script src="check.js"></script>
+    <script src="card.js"></script>
+    <link rel="stylesheet" href="https://code.jquery.com/qunit/qunit-2.14.1.css">
+</head>
+<body>
+<div id="qunit"></div>
+<div id="qunit-fixture"></div>
+<script src="https://code.jquery.com/qunit/qunit-2.14.1.js"></script>
+
+<script>
+
+    //create two baskets
+   const myBasket1 = new Basket();
+   const myBasket2 = new Basket();
+
+
+   //create a food factory
+   //add different products to a different basket
+   const factory = new ProductFactory();
+   const apple = factory.take("Apple", 3);
+   const water = factory.take("Bottle of water", 2);
+
+   //add products to baskets
+   myBasket1.addProduct(apple);
+   myBasket2.addProduct(water);
+
+    //singleton test (basket).
+    QUnit.module('Singleton testing', () => {
+        //when creating two baskets,
+        // the second basket must refer to the first one
+        QUnit.test('should be one basket', (assert) => {
+            assert.deepEqual(myBasket1, myBasket2)
+        });
+        //when creating two baskets and adding products to them,
+        // the second basket must refer to the first one and when
+        // calculating the total price, the price should be equal
+        // to the sum of all products added to the two baskets.
+        QUnit.test('should be one total price', (assert) => {
+            assert.equal(myBasket1.getTotalPrice(), myBasket2.getTotalPrice())
+        })
+    })
+
+    //test products
+    QUnit.module('Product list testing', () => {
+        //check the products added to the basket and their quantity
+        QUnit.test('should be apple', (assert) => {
+            assert.propEqual(myBasket1.getProducts()[0], {
+                name: "Apple",
+                number: 3,
+                price: 30
+            })
+        });
+        QUnit.test('should be bottle of water', (assert) => {
+            assert.propEqual(myBasket2.getProducts()[1], {
+                name: "Bottle of water",
+                number: 2,
+                price: 40
+            })
+        });
+    })
+
+    //check the card
+    QUnit.module('Card testing', () => {
+
+        //use the gold card strategy
+        const cardStrategy = new CardStrategy("GoldCardStrategy", myBasket1).chooseStrategy();
+
+        //get a discount on a gold card
+        cardStrategy.makeDiscount();
+
+        //check if the discount is valid
+        QUnit.test('price should be 56 after discount', (assert) => {
+
+            //gold card has 20% discount
+            //the price should be 70 - 20%
+            assert.equal(myBasket1.getTotalPrice(), 56)
+        });
+
+        //check using points
+        QUnit.test('price should be 54 after using points in card', (assert) => {
+
+            //use points from the card
+            cardStrategy.usePoints();
+
+            //two points are awarded for each purchase,
+            //after using the points, the price should be 56 - 2
+            assert.equal(myBasket1.getTotalPrice(), 54)
+        })
+    })
+
+</script>
+
+</body>
