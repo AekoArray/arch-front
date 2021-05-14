@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="iterator.js"></script>
+</head>
+<body>
+</body>
+
+<script>
+    //create a map collection
+    let map = new Map([[0, "zero"], [1, 1], [2, "two"], [3, 3], [4, 4]])
+    //create iterator for map
+    let iterator = new Iterator(map);
+    //take all the elements out of the map
+    for (let item = iterator.getFirst(); iterator.hasNext(); item = iterator.getNext()) {
+        console.log(item)
+    }
+    iterator.reset();
+
+    //output all elements whose values are numbers from map
+    console.log(iterator.getNumbers());
+
+</script>
