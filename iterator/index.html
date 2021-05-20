@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="iterator.js"></script>
+</head>
+<body>
+</body>
+
+<script>
+    //create a map collection
+    let map = new Map([[0, "zero"], [1, 1], [2, "two"], [3, 3], [4, 4]])
+    // //create iterator for map
+    let iterator = new Iterator(map);
+
+    console.log(iterator.getNext());
+    console.log(iterator.getNext());
+    console.log(iterator.getNext());
+    console.log(iterator.getNext());
+    console.log(iterator.getNext());
+
+    //create a set collection
+    let set = new Set(["zero",  1, "two" , 3, 4])
+    // //create iterator for set
+    let iterator1 = new Iterator(set);
+
+    console.log(iterator1.getNext());
+    console.log(iterator1.getNext());
+    console.log(iterator1.getNext());
+    console.log(iterator1.getNext());
+    console.log(iterator1.getNext());
+
+</script>
