@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    var Iterator = function (items) {
+        let index = 0
+        return {
+            //get first value
+            first: function () {
+                return items[0]
+            },
+            //get next value
+            next: function () {
+                index++
+                return items[index]
+            },
+            //get pref value
+            pref: function () {
+                index--
+                if (index != -1) {
+                    return items[index]
+                }
+            }
+        }
+    }
+
+    let items = [1, "two", true, "Apple"]
+    let iterator = new Iterator(items)
+    console.log(items)
+    console.log(iterator.first())
+    console.log(iterator.next())
+    console.log(iterator.next())
+    console.log(iterator.next())
+    console.log(iterator.pref())
+</script>
+</body>
+</html>
