@@ -16,26 +16,31 @@
             //get next value
             next: function () {
                 index++
-                return items[index]
+                if (index < items.length) {
+                    return items[index]
+                } else return "False"
             },
-            //get pref value
-            pref: function () {
+            //get prev value
+            prev: function () {
                 index--
                 if (index != -1) {
                     return items[index]
-                }
+                } else return "False"
             }
         }
     }
 
-    let items = [1, "two", true, "Apple"]
+    let items = [1, "two", true, "Apple", [6, 6], 3.3]
     let iterator = new Iterator(items)
     console.log(items)
     console.log(iterator.first())
     console.log(iterator.next())
     console.log(iterator.next())
     console.log(iterator.next())
-    console.log(iterator.pref())
+    console.log(iterator.next())
+    console.log(iterator.next())
+    console.log(iterator.next())
+    console.log(iterator.prev())
 </script>
 </body>
 </html>
