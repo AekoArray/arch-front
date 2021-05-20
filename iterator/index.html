@@ -11,15 +11,24 @@
 <script>
     //create a map collection
     let map = new Map([[0, "zero"], [1, 1], [2, "two"], [3, 3], [4, 4]])
-    //create iterator for map
+    // //create iterator for map
     let iterator = new Iterator(map);
-    //take all the elements out of the map
-    for (let item = iterator.getFirst(); iterator.hasNext(); item = iterator.getNext()) {
-        console.log(item)
-    }
-    iterator.reset();
 
-    //output all elements whose values are numbers from map
-    console.log(iterator.getNumbers());
+    console.log(iterator.getNext());
+    console.log(iterator.getNext());
+    console.log(iterator.getNext());
+    console.log(iterator.getNext());
+    console.log(iterator.getNext());
+
+    //create a set collection
+    let set = new Set(["zero",  1, "two" , 3, 4])
+    // //create iterator for set
+    let iterator1 = new Iterator(set);
+
+    console.log(iterator1.getNext());
+    console.log(iterator1.getNext());
+    console.log(iterator1.getNext());
+    console.log(iterator1.getNext());
+    console.log(iterator1.getNext());
 
 </script>
