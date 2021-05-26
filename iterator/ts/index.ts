@@ -6,7 +6,6 @@ import {Collection} from "./collection";
  * Purpose: Allows you to sequentially bypass the elements of the composite
  * objects without revealing their internal representation.
  */
-
 const collection = new Collection();
 collection.addItem(3);
 collection.addItem('String');

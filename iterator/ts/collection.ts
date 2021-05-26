@@ -6,7 +6,6 @@ import {Iterator} from "./iterator";
  * Concrete Collections provide one or more methods to get
  * new iterator instances compatible with the collection class.
  */
-
 export class Collection implements Aggregator {
 
     private items: any[] = [];
@@ -26,6 +25,7 @@ export class Collection implements Aggregator {
         this.items.push(item);
     }
 
+    //Get iterator
     public getIterator(): Iterator<any> {
         return new CollectionIterator(this);
     }

@@ -1,10 +1,10 @@
 import {Collection} from "./collection";
 import {Iterator} from "./iterator";
+
 /**
  * Concrete Iterators implement different traversal algorithms. These classes
  * permanently store the current bypass position.
  */
-
 export class CollectionIterator implements Iterator<any> {
     private collection: Collection;
 
@@ -40,7 +40,6 @@ export class CollectionIterator implements Iterator<any> {
 
     //Check for next item
     public hasNext(): boolean {
-
         return this.position < this.collection.getCount();
     }
 }
